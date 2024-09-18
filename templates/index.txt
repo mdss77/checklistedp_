@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Preencher Excel</title>
+</head>
+<body>
+    <h1>Formulário para Preenchimento de Excel</h1>
+    <form action="/" method="post" enctype="multipart/form-data">
+        <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required><br><br>
+
+        <label for="idade">Nr EDP:</label>
+        <input type="text" id="idade" name="nr_edp" required><br><br>
+
+        <label for="cidade">Ticket:</label>
+        <input type="text" id="ticket" name="ticket" required><br><br>
+
+	<label for="idade">Equipamento Removido:</label>
+        <input type="text" id="removido" name="removido" required><br><br>
+
+        <label for="cidade">Equipamento Instalado:</label>
+        <input type="text" id="instalado" name="instalado" required><br><br>
+
+        <label for="file">Selecione um arquivo Excel:</label>
+        <input type="file" id="file" name="file" accept=".xlsx" required><br><br>
+
+        <input type="submit" value="Enviar">
+    </form>
+</body>
+</html>

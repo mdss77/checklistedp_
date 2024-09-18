@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checklist EDP</title>
+	<script src="https://cdn.jsdelivr.net/npm/signature_pad@2.3.2/dist/signature_pad.min.js"></script>
+    <style>
+        /* Centraliza o conteúdo na página */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;  /* Faz o conteúdo ocupar a altura total da página */
+            margin: 0;
+            background-color: #f4f4f9;
+            flex-direction: column; /* Alinha o conteúdo em coluna */
+        }
+
+        /* Estilo para o container do título e logotipo */
+        .header {
+            display: flex;
+            align-items: center;  /* Alinha o logotipo e o texto verticalmente */
+            justify-content: center; /* Centraliza o conteúdo horizontalmente */
+            margin-bottom: 20px;  /* Espaçamento entre o header e o formulário */
+        }
+
+        .header img {
+            max-width: 80px;  /* Define a largura máxima da imagem */
+            margin-right: 15px;  /* Espaçamento entre o logotipo e o título */
+        }
+
+        .header h1 {
+            margin: 0; /* Remove a margem padrão do título */
+        }
+
+        /* Estilos para o formulário */
+        .form-container {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;  /* Define uma largura máxima */
+            text-align: center; /* Centraliza o texto no formulário */
+        }
+
+        .form-container input[type="text"],
+        .form-container select {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+
+        .form-container input[type="submit"] {
+            width: 100%;
+            background-color: #007bff;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .form-container input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+	 <!-- Adiciona o logotipo no topo da página -->
+    <div style="text-align: center;">
+        <img src="{{ url_for('static', filename='logo.png') }}" alt="Logotipo" style="width: 150px;">
+    </div>
+
+    <h1>Checklist</h1>
+    <form action="/" method="post" enctype="multipart/form-data">
+	
+	<label for="ticket">Ticket:</label>
+        <input type="text" id="ticket" name="ticket" required><br><br>
+	
+    <label for="nome">Nome:</label>
+        <input type="text" id="nome" name="nome" required><br><br>
+
+    <label for="removido">Nr EDP:</label>
+        <input type="text" id="removido" name="nr_edp" required><br><br>
+
+	<label for="removido">Eq. Removido:</label>
+        <input type="text" id="removido" name="removido" optional><br><br>
+		
+	<label for="imagem">Eq. Removido:</label>
+        <input type="file" id="imagem1" name="imagem1" accept="image/*"><br><br>
+
+	<label for="instalado">Eq. Instalado:</label>
+        <input type="text" id="instalado" name="instalado" optional><br><br>
+
+	<label for="imagem">Eq. Instalado:</label>
+        <input type="file" id="imagem2" name="imagem2" accept="image/*"><br><br>
+		
+	<form method="POST" enctype="multipart/form-data">
+    <!-- Outros campos do formulário -->
+
+    <label for="beneficio">Benefício:</label>
+    <select name="beneficio" id="beneficio">
+        <option value="Aceitou">Aceitou</option>
+        <option value="Recusou">Recusou</option>
+        <option value="NaoAplicavel">Não aplicável</option>
+    </select>	
+
+	<h3>Assinatura:</h3>
+        <canvas id="signature-pad"></canvas>
+        <br>
+        <button type="button" onclick="clearSignature()">Limpar Assinatura</button>
+        <br><br>
+        
+        <input type="hidden" name="signature_data" id="signature_data">
+
+        <button type="submit">Enviar</button>
+
+    </form>
+	
+	<script>
+        var canvas = document.getElementById('signature-pad');
+        var signaturePad = new SignaturePad(canvas);
+
+        function clearSignature() {
+            signaturePad.clear();
+        }
+
+        // Ao enviar o formulário, captura a assinatura como imagem
+        document.querySelector('form').addEventListener('submit', function (e) {
+            if (!signaturePad.isEmpty()) {
+                var dataURL = signaturePad.toDataURL();
+                document.getElementById('signature_data').value = dataURL;
+            }
+        });
+    </script>
+</body>
+</html>
